@@ -1,0 +1,25 @@
+{
+  "name": "trabalho_backend",
+  "version": "1.0.0",
+  "description": "Trabalho da disciplina de Programacao Backend",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crisfujihara/trabalho_backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crisfujihara/trabalho_backend/issues"
+  },
+  "homepage": "https://github.com/crisfujihara/trabalho_backend#readme",
+  "dependencies": {
+    "mongodb": "^6.16.0",
+    "nodemon": "^3.1.10"
+  }
+}
