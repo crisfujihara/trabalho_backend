@@ -26,6 +26,43 @@ export class Post {
     };
   }
 
+    // atualizar post (apenas content)
+  async updatePost({ postId, content }) {
+    if (!postId || !content) {
+      throw new Error('postId e content sao obrigatorios');
+    }
+    const _id = typeof postId === 'string' ? new ObjectId(postId) : postId;
+    try {
+      const res = await this.coll.updateOne(
+        { _id },
+        { $set: { content } }
+      );
+      if (res.matchedCount === 0) {
+        throw new Error('post nao encontrado');
+      }
+      return true;
+    } catch (err) {
+      throw new Error('erro atualizar post: ' + err.message);
+    }
+  }
+
+  // deletar post
+  async deletePost(postId) {
+    if (!postId) {
+      throw new Error('postId obrigatorio');
+    }
+    const _id = typeof postId === 'string' ? new ObjectId(postId) : postId;
+    try {
+      const res = await this.coll.deleteOne({ _id });
+      if (res.deletedCount === 0) {
+        throw new Error('post nao encontrado');
+      }
+      return true;
+    } catch (err) {
+      throw new Error('erro deletar post: ' + err.message);
+    }
+  }
+
   // adicionar comentario
   async addComment({ postId, username, content }) {
     if (!postId || !username || !content) {
