@@ -41,4 +41,49 @@ export class User {
       throw new Error('Erro ao listar usuarios: ' + err.message);
     }
   }
+
+  // atualizar por username
+  async updateUser({ username, email, password }) {
+    if (!username) {
+      throw new Error('username obrigatorio');
+    }
+    const update = {};
+    if (email) update.email = email;
+    if (password) update.password = password;
+    if (Object.keys(update).length === 0) {
+      throw new Error('nenhum campo para atualizar');
+    }
+    try {
+      const result = await this.coll.updateOne(
+        { username },
+        { $set: update }
+      );
+      if (result.matchedCount === 0) {
+        throw new Error('usuario nao encontrado');
+      }
+      console.log('usuario atualizado:', username);
+      return true;
+    } catch (err) {
+      throw new Error('erro atualizar usuario: ' + err.message);
+    }
+  }
+
+  // remover por username
+  async deleteUser(username) {
+    if (!username) {
+      throw new Error('username obrigatorio');
+    }
+    try {
+      const result = await this.coll.deleteOne({ username });
+      if (result.deletedCount === 0) {
+        throw new Error('usuario nao encontrado');
+      }
+      console.log('usuario removido:', username);
+      return true;
+    } catch (err) {
+      throw new Error('erro remover usuario: ' + err.message);
+    }
+  }
 }
+
+
