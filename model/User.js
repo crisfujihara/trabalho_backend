@@ -48,17 +48,17 @@ export class User {
       throw new Error('username obrigatorio');
     }
     const update = {};
-    if (email) update.email = email;
+    if (email)    update.email    = email;
     if (password) update.password = password;
     if (Object.keys(update).length === 0) {
       throw new Error('nenhum campo para atualizar');
     }
     try {
-      const result = await this.coll.updateOne(
+      const res = await this.collection.updateOne(
         { username },
         { $set: update }
       );
-      if (result.matchedCount === 0) {
+      if (res.matchedCount === 0) {
         throw new Error('usuario nao encontrado');
       }
       console.log('usuario atualizado:', username);
@@ -74,8 +74,8 @@ export class User {
       throw new Error('username obrigatorio');
     }
     try {
-      const result = await this.coll.deleteOne({ username });
-      if (result.deletedCount === 0) {
+      const res = await this.collection.deleteOne({ username });
+      if (res.deletedCount === 0) {
         throw new Error('usuario nao encontrado');
       }
       console.log('usuario removido:', username);
